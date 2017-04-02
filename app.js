@@ -8,10 +8,11 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var ejs = require('ejs'); 
+
 
 var app = express();
 
-var ejs = require('ejs'); 
 
 // all environments
 app.set('port', process.env.PORT || 80);
@@ -44,6 +45,7 @@ app.get('/', routes.index);
 app.get('/live',routes.live);
 app.get('/jy',routes.jy);
 app.get('/users', user.list);
+app.get('/search/:id/:pagecount',routes.search);
 
 http.createServer(app).listen(app.get('port'), function(){	
   console.log('Express server listening on port ' + app.get('port'));

@@ -13,13 +13,19 @@
 			body {
 				padding-top: 80px;
 			}
-			.table{
+			
+			.table {
 				width: 60%;
+			}
+			.form-group{
+				text-align: center;
 			}
 		</style>
 	</head>
 
 	<body>
+		
+		
 		<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -65,12 +71,7 @@
 							</ul>
 						</li>
 					</ul>
-					<form class="navbar-form navbar-left">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
-					</form>
+
 					<ul class="nav navbar-nav navbar-right">
 						<li>
 							<a href="#">Link</a>
@@ -99,68 +100,119 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
+		
+		<div class="form-group">
+			<label>查询内容&nbsp;&nbsp;</label>
+			<input type="text"  placeholder="Search" id='intxt_para'>
+			<label>页面数&nbsp;&nbsp;</label>
+			<input id="pagecount" type="number" value="1"/>
+			<button type="button" class="btn btn-default" onclick="eg.searchee()">查询</button>
+		</div>
 
 		<!--
         	作者：491128833@qq.com
         	时间：2017-03-30
         	描述：查询内容
        -->
-		
+
 		
 		<center>
-			<table class="table table-hover" >
+			<table class="table table-hover">
 				<thead>
 					<tr>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
+						<td>标题</td>
+						<td>详细</td>
+						<td>链接</td>
+						<td>标题4</td>
+						<td>标题5</td>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id='dataitems'>
+
+					<% datas.forEach(function(item){%>
 					<tr>
-						<td class="info">...</td>
-						<td>...</td>
-						<td>...</td>
+						<td class="info">
+							<%=item.title%>
+						</td>
+						<td>
+							<%=item.details%>
+						</td>
+						<td>
+							<%=item.link%>
+						</td>
 						<td>...</td>
 						<td>...</td>
 					</tr>
-					<tr>
-						<td class="info">...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td class="info">...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td class="info">...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-					</tr>
-					<!-- On cells (`td` or `th`) -->
-					<tr>
+					<% }) %>
+					
+					
+				</tbody>
+				<!-- On cells (`td` or `th`) -->
+				<tr>
 						<td class="active">...</td>
 						<td class="success">...</td>
 						<td class="warning">...</td>
 						<td class="danger">...</td>
 						<td class="info">...</td>
 					</tr>
-				</tbody>
 			</table>
 		</center>
 	</body>
+
 	<!--JS引用-->
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script>
+		var eg={};
+		eg.searchee=function (){
+			var searchpara=eg.$('intxt_para').value;
+			var searchpage=eg.$('pagecount').value;
+			if(searchpara==null||searchpara==undefined||searchpara==''||searchpage==null||searchpage==undefined){
+				alert('请输入查询内容');
+				return ;
+			}else{
+			var loadtext='/search'+'/'+searchpara+'/'+searchpage;
+			loadXMLDoc(loadtext);	
+			}
+			
+		}
+		//从ID获取控件
+		eg.$=function(id){
+			return document.getElementById(id);
+		}
+		
+		var xmlhttp;
+		function loadXMLDoc(url) {
+			xmlhttp = null;
+			if(window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			}
+			if(xmlhttp != null) {
+				xmlhttp.onreadystatechange = state_Change;
+				xmlhttp.open("GET", url, true);
+				xmlhttp.send(null);
+			} else {
+				alert("Your browser does not support XMLHTTP.")
+			}
+		}
 
+		function state_Change() {
+			if(xmlhttp.readyState == 4) {
+				if(xmlhttp.status == 200) {
+					//200="OK"
+					document.getElementById('dataitems').innerHTML = xmlhttp.responseText;
+				} else {
+					alert("Problem retrieving data:" + xmlhttp.statusText);
+				}
+			}
+		}
+		//page up and down
+		eg.uppage=function(){
+			eg.$('pagecount').value=parseInt(eg.$('pagecount').value)-1;
+		}
+		eg.downpage=function(){
+			eg.$('pagecount').value=parseFloat(eg.$('pagecount').value)+1;
+		}
+		
+	</script>
 </html>
