@@ -53,3 +53,7 @@ exports.search=function(req,res){
 
 	
 };
+
+exports.photo=function(req,res){
+	res.render('photo');
+};
