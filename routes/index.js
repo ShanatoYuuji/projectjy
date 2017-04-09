@@ -6,6 +6,7 @@
 //引入数据库包
 var db=require('../Database/pg.js');
 
+var registermail=require('./mail.js');
 
 
 exports.index = function(req, res){
@@ -56,4 +57,25 @@ exports.search=function(req,res){
 
 exports.photo=function(req,res){
 	res.render('photo');
+};
+
+exports.registerpage=function(req,res){
+	res.render('register',{title:'注册页面',message:'注册信息'});
+};
+
+exports.registermail=function(req,res){
+	console.log(req.params.id);
+	console.log(req.params.password);
+	var mailOptions = {
+		    from: 'Notice@shakugannoshana.me', // 发件地址
+		    to: '491128833@qq.com', // 收件列表
+		    subject: 'Hello sir', // 标题
+		    //text和html两者只支持一种
+		    text: 'Hello world ?', // 标题
+		    //html: '<b>Hello world ?</b>' // html 内容
+		};
+	mailOptions.to=req.params.id;
+	mailOptions.text='这是注册邮件';
+	registermail.sendMail(mailOptions,req,res);
+	res.end();
 };

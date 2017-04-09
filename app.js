@@ -47,6 +47,8 @@ app.get('/jy',routes.jy);
 app.get('/users', user.list);
 app.get('/search/:id/:pagecount',routes.search);
 app.get('/photo',routes.photo);
+app.get('/registerpage',routes.registerpage);
+app.get('/registermail/:id/:password',routes.registermail);
 
 http.createServer(app).listen(app.get('port'), function(){	
   console.log('Express server listening on port ' + app.get('port'));

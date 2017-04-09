@@ -23,13 +23,13 @@
 	</head>
 
 	<body>
-
+	<form>
 		<div class="row">
 			<div class="col-md-1">
 				</div>
 			<div class="col-md-6">
 				<a href="#" class="thumbnail">
-					<img src="../public/images/img_0.jpg" alt="...">
+					<img src="/static/images/img_0.jpg" alt="...">
 				</a>
 			</div>
 			<div class="col-md-4">
@@ -46,11 +46,12 @@
 					<label for="exampleInputPassword2">Confirm</label>
 					<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
 				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
+				<button type="submit" class="btn btn-default" onclick="eg.register()">Submit</button>
 			</div>
 			<div class="col-md-1">
 				</div>
 		</div>
+		</form>
 	</body>
 	<!--JS引用-->
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -60,6 +61,47 @@
 		//从ID获取控件
 		eg.$ = function(id) {
 			return document.getElementById(id);
+		}
+		
+			eg.register=function (){
+			var emailvalue=eg.$('exampleInputEmail1').value;
+			var pwdvalue=eg.$('exampleInputPassword1').value;
+			if(emailvalue==null||emailvalue==undefined||emailvalue==''||pwdvalue==null||pwdvalue==undefined){
+				alert('请输入查询内容');
+				return ;
+			}else{
+			var loadtext='/registermail'+'/'+emailvalue+'/'+pwdvalue;
+			loadXMLDoc(loadtext);	
+			}
+			
+		}
+		
+		var xmlhttp;
+		function loadXMLDoc(url) {
+			xmlhttp = null;
+			if(window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			}
+			if(xmlhttp != null) {
+				xmlhttp.onreadystatechange = state_Change;
+				xmlhttp.open("GET", url, true);
+				xmlhttp.send(null);
+			} else {
+				alert("Your browser does not support XMLHTTP.")
+			}
+		}
+
+		function state_Change() {
+			if(xmlhttp.readyState == 4) {
+				if(xmlhttp.status == 200) {
+					//200="OK"
+					//document.getElementById('dataitems').innerHTML = xmlhttp.responseText;
+					alert("注册邮件已发送");
+				} else {
+					alert("请输入正确的邮箱地址");
+					//alert("Problem retrieving data:" + xmlhttp.statusText);
+				}
+			}
 		}
 	</script>
 
