@@ -69,7 +69,7 @@ exports.registermail=function(req,res){
 	var mailOptions = {
 		    from: 'c1273099082@gmail.com', // 发件地址
 		    to: '491128833@qq.com', // 收件列表
-		    subject: 'Hello sir', // 标题
+		    subject: '来自shiori的注册邮件', // 标题
 		    //text和html两者只支持一种
 		    text: 'Hello world ?', // 标题
 		    //html: '<b>Hello world ?</b>' // html 内容
