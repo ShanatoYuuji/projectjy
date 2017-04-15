@@ -11,23 +11,26 @@
 		</title>
 		<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 	</head>
-		<style>
-			body {
-				padding-top: 50px;
-			}
-			.carousel{
-				height:500px ;
-				background-color: black;
-			}
-			.carousel .item{
-				height:500px ;
-				background-color: black;	
-			}
-			.carousel img{
-				height:100% ;
-				width: 100%;
-			}
-		</style>
+	<style>
+		body {
+			padding-top: 50px;
+		}
+		
+		.carousel {
+			height: 500px;
+			background-color: black;
+		}
+		
+		.carousel .item {
+			height: 500px;
+			background-color: black;
+		}
+		
+		.carousel img {
+			height: 100%;
+			width: 100%;
+		}
+	</style>
 
 	<body>
 		<!--
@@ -119,7 +122,7 @@
         	时间：2017-03-28
         	描述：滚动图片组件
         -->
-        
+
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
@@ -134,13 +137,13 @@
 				<div class="item active">
 					<img src="/static/images/img_0.jpg" alt="...">
 					<div class="carousel-caption">
-						
+
 					</div>
 				</div>
 				<div class="item">
 					<img src="/static/images/1455029588.jpg" alt="...">
 					<div class="carousel-caption">
-						
+
 					</div>
 				</div>
 				<div class="item">
@@ -168,7 +171,11 @@
 				<span class="sr-only">Next</span>
 			</a>
 		</div>
-	
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container">
+				<audio src="/static/music/赤い涙.mp3" autoplay="autoplay" controls="controls"></audio>
+			</div>
+		</nav>
 	</body>
 	<!--JS引用-->
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>

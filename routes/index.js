@@ -67,7 +67,7 @@ exports.registermail=function(req,res){
 	console.log(req.params.id);
 	console.log(req.params.password);
 	var mailOptions = {
-		    from: 'c1273099082@gmail.com', // 发件地址
+		    from: 'Notice@shakugannoshana.me', // 发件地址
 		    to: '491128833@qq.com', // 收件列表
 		    subject: '来自shiori的注册邮件', // 标题
 		    //text和html两者只支持一种
