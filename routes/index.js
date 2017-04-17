@@ -21,6 +21,8 @@ exports.live=function(req,res){
 exports.jy=function(req,res){
 	db.query(1,1,function (err,result){
 		res.render('jysearch',{title:'极影爱好者查询',datas:result.rows});
+		//res.render('jysearch',{title:'极影爱好者查询'});
+		
 	});
 	
 };
@@ -42,7 +44,8 @@ exports.search=function(req,res){
 		res.write(JSON.stringify(result.rows[i].title));
 		res.write("</td><td>");
 		//res.write(JSON.stringify(result.rows[i].details));
-		res.write(JSON.stringify("details"));
+		res.write(result.rows[i].details);
+		//res.write(JSON.stringify("details"));
 		res.write("</td><td>");
 		var strlink=result.rows[i].link.split('&amp;');
 		res.write(JSON.stringify(strlink[0]));
