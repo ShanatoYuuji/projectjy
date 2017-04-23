@@ -19,12 +19,14 @@ idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before 
 };
 
 exports.query = querypagecount;
+exports.registuser=registuser;
 
 //this initializes a connection pool
 //it will keep idle connections open for a 30 seconds
 //and set a limit of maximum 10 idle clients
 var pool = new pg.Pool(config);
 
+//分页查询jy数据库
 function querypagecount(keyword,pagecount,callback){
 	//判断查询内容
 	if(keyword==null){
@@ -59,7 +61,6 @@ function querypagecount(keyword,pagecount,callback){
 					 //call `done()` to release the client back to the pool
 					  done();
 					  callback(err,result);
-					  console.log('pagecount');
 					 if(err) {
 					   return console.error('error running query', err);
 					 }
@@ -80,6 +81,37 @@ function querypagecount(keyword,pagecount,callback){
 		console.error('idle client error', err.message, err.stack);
 		});
 }
+
+//用户名注册插入
+
+function registuser(userid,password,certificatecode,callback){
+	pool.connect(function(err, client, done) {
+		  if(err) {
+		    return console.error('error fetching client from pool', err);
+		  }
+		  client.query('insert into useronshiori(usermail,userpassword,usercreatetime,usercertificate) values($1::text,$2::text,now(),$3::text)', [userid,password,certificatecode], function(err, result) {
+		    //call `done()` to release the client back to the pool
+		    done();
+		    if(err) {
+		      return console.error('error running query', err);
+		    }
+		    console.log(result);
+		    //output: 1
+		    return result;
+		  });
+		});
+
+		pool.on('error', function (err, client) {
+		  // if an error is encountered by a client while it sits idle in the pool
+		  // the pool itself will emit an error event with both the error and
+		  // the client which emitted the original error
+		  // this is a rare occurrence but can happen if there is a network partition
+		  // between your application and the database, the database restarts, etc.
+		  // and so you might want to handle it and at least log it out
+		  console.error('idle client error', err.message, err.stack)
+		})
+}
+
 
 //正则表达式来判断是否为正整数
 function isNumber(value){

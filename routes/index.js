@@ -8,6 +8,9 @@ var db=require('../Database/pg.js');
 
 var registermail=require('./mail.js');
 
+//判断邮箱用正则表达式
+var mailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
 
 exports.index = function(req, res){
 	
@@ -69,16 +72,26 @@ exports.registerpage=function(req,res){
 exports.registermail=function(req,res){
 	console.log(req.params.id);
 	console.log(req.params.password);
+	if(!mailreg.test(req.params.id)){
+		res.end("请输入正确的邮箱地址！");
+	}
+	//插入数据库注册信息和验证码
+	db.registuser(req.params.id,req.params.password,"测试验证码",function(err,result){
+		console.log(result);
+	});
 	var mailOptions = {
 		    from: 'Notice@shakugannoshana.me', // 发件地址
-		    to: '491128833@qq.com', // 收件列表
+		    to:'railgun@shakugannoshana.me', // 收件列表
 		    subject: '来自shiori的注册邮件', // 标题
 		    //text和html两者只支持一种
-		    text: 'Hello world ?', // 标题
+		    text: '你好！测试验证码。', 
 		    //html: '<b>Hello world ?</b>' // html 内容
 		};
 	mailOptions.to=req.params.id;
-	mailOptions.text='这是注册邮件';
+	mailOptions.text='你好！测试验证码。';
 	registermail.sendMail(mailOptions,req,res);
 	res.end();
 };
+
+
+
