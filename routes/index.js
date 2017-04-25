@@ -8,6 +8,9 @@ var db=require('../Database/pg.js');
 
 var registermail=require('./mail.js');
 
+//导入共同用的代码
+var commontool=require('../tool/common.js');
+
 //判断邮箱用正则表达式
 var mailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
@@ -88,7 +91,8 @@ exports.registermail=function(req,res){
 		    //html: '<b>Hello world ?</b>' // html 内容
 		};
 	mailOptions.to=req.params.id;
-	mailOptions.text='你好！测试验证码。';
+	//mailOptions.text='你好！测试验证码。';
+	mailOptions.text=commontool.randomcertificate();
 	registermail.sendMail(mailOptions,req,res);
 	res.end();
 };
