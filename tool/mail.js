@@ -1,3 +1,4 @@
+//发邮件用js文件
 var nodemailer =require('nodemailer');
 var transporter = nodemailer.createTransport({
     //https://github.com/andris9/nodemailer-wellknown#supported-services 支持列表

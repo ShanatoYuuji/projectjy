@@ -8,7 +8,15 @@
 		<title>
 			<%=title%>
 		</title>
+		<!--
 		<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+		-->
+		<!--
+        	作者：491128833@qq.com
+        	时间：2017-05-08
+        	描述：本地css样式为了离线使用
+        -->
+		<link rel="stylesheet" href="/static/stylesheets/bootstrap.min.css" />
 		<style>
 			body {
 				padding-top: 80px;
@@ -18,12 +26,11 @@
 				width: 60%;
 				text-align: center;
 			}
-			
 		</style>
 	</head>
 
 	<body>
-			<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -102,10 +109,10 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
-	
+
 		<div class="row">
 			<div class="col-md-1">
-				</div>
+			</div>
 			<div class="col-md-6">
 				<a href="#" class="thumbnail">
 					<img src="/static/images/img_0.jpg" alt="...">
@@ -121,40 +128,50 @@
 				<div class="form-group">
 					<label for="exampleInputPassword1">Password</label>
 					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-					
+
 					<label for="exampleInputPassword2">Confirm</label>
 					<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
 				</div>
 				<button type="submit" class="btn btn-default" onclick="eg.register()">Submit</button>
 			</div>
 			<div class="col-md-1">
-				</div>
+			</div>
 		</div>
 	</body>
 	<!--JS引用-->
+	<!--
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	-->
+	<!--
+    	作者：491128833@qq.com
+    	时间：2017-05-08
+    	描述：离线jquery和bootstrap的javascript文件使用
+    -->
+	<script type="text/javascript" src="static/javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="static/javascripts/bootstrap.min.js"></script>
 	<script>
 		var eg = {};
 		//从ID获取控件
 		eg.$ = function(id) {
 			return document.getElementById(id);
 		}
-		
-			eg.register=function (){
-			var emailvalue=eg.$('exampleInputEmail1').value;
-			var pwdvalue=eg.$('exampleInputPassword1').value;
-			if(emailvalue==null||emailvalue==undefined||emailvalue==''||pwdvalue==null||pwdvalue==undefined){
+
+		eg.register = function() {
+			var emailvalue = eg.$('exampleInputEmail1').value;
+			var pwdvalue = eg.$('exampleInputPassword1').value;
+			if(emailvalue == null || emailvalue == undefined || emailvalue == '' || pwdvalue == null || pwdvalue == undefined) {
 				alert('请输入查询内容');
-				return ;
-			}else{
-			var loadtext='/registermail'+'/'+emailvalue+'/'+pwdvalue;
-			loadXMLDoc(loadtext);	
+				return;
+			} else {
+				var loadtext = '/registermail' + '/' + emailvalue + '/' + pwdvalue;
+				loadXMLDoc(loadtext);
 			}
-			
+
 		}
-		
+
 		var xmlhttp;
+
 		function loadXMLDoc(url) {
 			xmlhttp = null;
 			if(window.XMLHttpRequest) {

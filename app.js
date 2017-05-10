@@ -47,8 +47,14 @@ app.get('/jy',routes.jy);
 app.get('/users', user.list);
 app.get('/search/:id/:pagecount',routes.search);
 app.get('/photo',routes.photo);
+//跳转注册页面
 app.get('/registerpage',routes.registerpage);
+//发送注册邮件
 app.get('/registermail/:id/:password',routes.registermail);
+//数据库登录页面
+app.get('/zhiyuandata',routes.zhiyuandata);
+//post请求 数据库插入数据
+app.post('/zhiyuandata',routes.zhiyuaninputdata);
 
 http.createServer(app).listen(app.get('port'), function(){	
   console.log('Express server listening on port ' + app.get('port'));

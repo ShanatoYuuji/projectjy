@@ -14,12 +14,13 @@ database: 'postgres', //env var: PGDATABASE
 password: '123zzz', //env var: PGPASSWORD
 host: 'localhost', // Server hosting the postgres database
 port: 5432, //env var: PGPORT
-max: 10, // max number of clients in the pool
+max: 100, // max number of clients in the pool
 idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
 };
 
 exports.query = querypagecount;
 exports.registuser=registuser;
+exports.zhiyuandata=zhiyuandata;
 
 //this initializes a connection pool
 //it will keep idle connections open for a 30 seconds
@@ -44,7 +45,6 @@ function querypagecount(keyword,pagecount,callback){
 			}
 			if(pagecount<=1){
 				client.query("select title,details,link from jiying where title LIKE $1::text order by id limit 50", [keywordsql], function(err, result) {
-					console.log("查询");
 					 //call `done()` to release the client back to the pool
 					 done();
 					 callback(err,result);
@@ -57,7 +57,6 @@ function querypagecount(keyword,pagecount,callback){
 				
 			}else{
 				client.query("select title,link from jiying where title LIKE $1::text AND id>(select MAX(id) from (select id from jiying where title LIKE $1::text order by id limit $2::int)b ) order by id limit 50", [keywordsql,pagecountsql], function(err, result) {
-					console.log("查询");
 					 //call `done()` to release the client back to the pool
 					  done();
 					  callback(err,result);
@@ -108,10 +107,65 @@ function registuser(userid,password,certificatecode,callback){
 		  // this is a rare occurrence but can happen if there is a network partition
 		  // between your application and the database, the database restarts, etc.
 		  // and so you might want to handle it and at least log it out
-		  console.error('idle client error', err.message, err.stack)
-		})
+		  console.error('idle client error', err.message, err.stack);
+		});
 }
 
+var maxid;
+//插入新记录到数据库
+function zhiyuandata(titile,link,author){
+	
+		//var maxid=searchmaxid();
+		//consolemaxid(searchemaxidd());
+		searchmaxid(function(){
+			//将查询出来的id回调插入
+			maxid=maxid+1;
+			pool.query('insert into jiying(id,title,date,link,author) values($1::int,$2::text,now(),$3::text,$4::text)',[maxid,titile,link,author]);
+		});
+}
+
+//查询记录中最大的id
+//最好不要显示调用
+ function searchmaxid(callback){
+	 pool.query('SELECT max(id) from jiying;',function(err,result){
+		 if(err) {
+		      return console.error('error running query', err);
+		    }
+		 maxid=result.rows[0].max;
+		 callback();
+	 });
+	
+	   /*
+	pool.connect(function(err, client, done) {
+		  if(err) {
+		    return console.error('error fetching client from pool', err);
+		  }
+		  client.query('SELECT max(id) from jiying;',  function(err, result) {
+		    //call `done()` to release the client back to the pool
+		    done();
+
+		    if(err) {
+		      return console.error('error running query', err);
+		    }
+		    //console.log(result.rows[0].max);
+		    //最大的id
+		    maxid=result.rows[0].max;
+		    callback();
+		    return result.rows[0].max;
+		  });
+		});
+		*/
+
+		pool.on('error', function (err, client) {
+		  // if an error is encountered by a client while it sits idle in the pool
+		  // the pool itself will emit an error event with both the error and
+		  // the client which emitted the original error
+		  // this is a rare occurrence but can happen if there is a network partition
+		  // between your application and the database, the database restarts, etc.
+		  // and so you might want to handle it and at least log it out
+		  console.error('idle client error', err.message, err.stack);
+		});
+}
 
 //正则表达式来判断是否为正整数
 function isNumber(value){
