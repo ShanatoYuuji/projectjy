@@ -21,6 +21,7 @@ idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before 
 exports.query = querypagecount;
 exports.registuser=registuser;
 exports.zhiyuandata=zhiyuandata;
+exports.searchblognew2=searchblognew2;
 
 //this initializes a connection pool
 //it will keep idle connections open for a 30 seconds
@@ -166,6 +167,17 @@ function zhiyuandata(titile,link,author){
 		  console.error('idle client error', err.message, err.stack);
 		});
 }
+ 
+ //查询博客表返回最新的2条
+ function searchblognew2(callback){
+	 pool.query('select blogauthor,blogauthroid,blogtitle,"blogIntroduction",blogcontent,blogintime,blogedittime from blog order by blogid DESC limit 2;',function(err,result){
+		 if(err) {
+		      return console.error('error running query', err);
+		    }
+		 callback(err,result);
+		 return result;
+	 });
+ }
 
 //正则表达式来判断是否为正整数
 function isNumber(value){

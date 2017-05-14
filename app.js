@@ -42,10 +42,15 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+//直播页面
 app.get('/live',routes.live);
+//跳转查询页面
 app.get('/jy',routes.jy);
+//测试页面
 app.get('/users', user.list);
+//查询页面的查询
 app.get('/search/:id/:pagecount',routes.search);
+//图片展示页面
 app.get('/photo',routes.photo);
 //跳转注册页面
 app.get('/registerpage',routes.registerpage);
@@ -55,6 +60,8 @@ app.get('/registermail/:id/:password',routes.registermail);
 app.get('/zhiyuandata',routes.zhiyuandata);
 //post请求 数据库插入数据
 app.post('/zhiyuandata',routes.zhiyuaninputdata);
+//博客页面跳转
+app.get('/blog',routes.blog);
 
 http.createServer(app).listen(app.get('port'), function(){	
   console.log('Express server listening on port ' + app.get('port'));

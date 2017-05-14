@@ -134,6 +134,25 @@ exports.zhiyuaninputdata=function(req,res){
 	res.send('<a href="/">主页</a>&nbsp发送成功');
 };
 
+//博客页面跳转
+exports.blog=function(req,res){
+	db.searchblognew2(function(err,result){
+		var blogtitle=result.rows[0].blogtitle;
+		var blogintime=result.rows[0].blogintime;
+		var blogIntroduction=result.rows[0].blogIntroduction;
+		var blogcontent=[result.rows[0].blogcontent,'<img src="http://i1.piimg.com/593970/77dbf7a564b30a20s.jpg" alt="...">'].join('');
+		console.log(result.rows[0].blogcontent);
+		//ES6内插字符串 符号用`
+		var blogcc=`<div class="blog-post" name="blogcontent" id="blogcontent"><h2 class="blog-post-title">${blogtitle}</h2><p class="blog-post-meta">${blogintime} 作者<a href="#">Cbb</a></p><p>${blogIntroduction}</p><hr><p>${blogcontent}</p></div>`;
+		//res.render('blog',{blogconnent:'<div class="blog-post" name="blogcontent" id="blogcontent"><h2 class="blog-post-title">博客标题</h2><p class="blog-post-meta">日期 作者<a href="#">Cbb</a></p><p>博客内容</p><hr><p>博客的内容</p></div>'});
+		res.render('blog',{blogconnent:blogcc});
+	});
+	
+
+};
+
+
+
 //正则替换去空格
 String.prototype.Trim = function()  
 {  
