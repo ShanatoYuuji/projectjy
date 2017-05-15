@@ -22,6 +22,8 @@ exports.query = querypagecount;
 exports.registuser=registuser;
 exports.zhiyuandata=zhiyuandata;
 exports.searchblognew2=searchblognew2;
+exports.searchbloglist=searchbloglist;
+exports.searchblogbyblogid=searchblogbyblogid;
 
 //this initializes a connection pool
 //it will keep idle connections open for a 30 seconds
@@ -83,7 +85,6 @@ function querypagecount(keyword,pagecount,callback){
 }
 
 //用户名注册插入
-
 function registuser(userid,password,certificatecode,callback){
 	pool.connect(function(err, client, done) {
 		  if(err) {
@@ -127,7 +128,7 @@ function zhiyuandata(titile,link,author){
 
 //查询记录中最大的id
 //最好不要显示调用
- function searchmaxid(callback){
+function searchmaxid(callback){
 	 pool.query('SELECT max(id) from jiying;',function(err,result){
 		 if(err) {
 		      return console.error('error running query', err);
@@ -179,6 +180,28 @@ function zhiyuandata(titile,link,author){
 	 });
  }
 
+ //查询博客列表
+ function searchbloglist(callback){
+	 pool.query('select blogid,blogtitle,blogintime from blog order by blogid desc;',function(err,result){
+		if(err){
+			return console.err('error running qurey',err);
+		}
+		callback(err,result);
+		return result;
+	 });
+ }
+ 
+ //查询指定ID的博客
+ function searchblogbyblogid(blogid,callback){
+	 pool.query('select  blogauthor,blogauthroid,blogtitle,"blogIntroduction",blogcontent,blogintime,blogedittime from blog where blogid =$1::int',[blogid],function(err,result){
+		 if(err){
+				return console.log('error running qurey',err);
+			}
+			callback(err,result);
+			return result;
+	 });
+ }
+ 
 //正则表达式来判断是否为正整数
 function isNumber(value){
 	var patrn=/^[0-9]*[1-9][0-9]*$/;

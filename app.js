@@ -62,6 +62,8 @@ app.get('/zhiyuandata',routes.zhiyuandata);
 app.post('/zhiyuandata',routes.zhiyuaninputdata);
 //博客页面跳转
 app.get('/blog',routes.blog);
+//博客查询
+app.get('/blog/:blogid',routes.searchblog);
 
 http.createServer(app).listen(app.get('port'), function(){	
   console.log('Express server listening on port ' + app.get('port'));

@@ -31,8 +31,9 @@
 			<div class="row">
 
 				<div class="col-sm-8 blog-main">
-					<%- blogconnent%>
-					
+					<div id="blogconnent">
+						<%- blogconnent%>
+					</div>
 					<!-- /.blog-post -->
 
 					<nav>
@@ -64,9 +65,10 @@
 					</div>
 					<div class="sidebar-module">
 						<h4>Archives</h4>
-						<ol class="list-unstyled" >
+						<%- sidecontent%>
+						<ol class="list-unstyled">
 							<li>
-								<a href="#">2017.5.11</a>
+								<a  onclick="loadXMLDoc('/blog/1')">2017.5.11</a>
 							</li>
 							<li>
 								<a href="#">February 2014</a>
@@ -127,5 +129,39 @@
 		<!-- /.container -->
 
 	</body>
+	<script>
+		var xmlthhp;
 
+		function loadXMLDoc(url) {
+			xmlhttp = null;
+			if(window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				alert('您的浏览器太旧了升级一下吧');
+			}
+			if(xmlhttp != undefined || xmlhttp != null) {
+				xmlhttp.onreadystatechange = state_Change;
+				xmlhttp.open("GET", url, true);
+				xmlhttp.send(null);
+			} else {
+				alert('您的浏览器太旧了升级一下吧');
+			}
+		}
+
+		function state_Change() {
+			if(xmlhttp.readyState == 4) {
+				if(xmlhttp.status == 200) {
+					//200="OK"
+					eg.$('blogconnent').innerHTML = xmlhttp.responseText;
+				} else {
+					alert("Problem retrieving data:" + xmlhttp.statusText);
+				}
+			}
+		}
+		var eg = {};
+		//从ID获取控件
+		eg.$ = function(id) {
+			return document.getElementById(id);
+		}
+	</script>
 </html>
