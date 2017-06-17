@@ -9,26 +9,26 @@
 		<title>数据支援页面</title>
 	</head>
 	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
-	
+
 	<!--
         	作者：491128833@qq.com
         	时间：2017-05-08
         	描述：本地css样式为了离线使用
         -->
-		
-		<link rel="stylesheet" href="/static/stylesheets/bootstrap.css" />
-	
+
+	<link rel="stylesheet" href="/static/stylesheets/bootstrap.css" />
+
 	<style>
 		body {
 			padding-top: 50px;
 		}
 		
-		 .labelcenter {
+		.labelcenter {
 			margin-left: 20%;
 			margin-right: 20%;
 		}
 		
-		.inputcenter{
+		.inputcenter {
 			width: 60%;
 			margin-left: 20%;
 			margin-right: 20%;
@@ -131,18 +131,18 @@
 				<label for="inputtitle" class="labelcenter">标题</label>
 				<input type="text" class="form-control inputcenter" id="inputtitle" name="inputtitle" />
 				<label for="inputcili" class="labelcenter">磁力链接</label>
-				<input type="text" class="form-control inputcenter" id="inputcili" name="inputcili"/>
+				<input type="text" class="form-control inputcenter" id="inputcili" name="inputcili" />
 				<label for="inputbeiyong1" class="labelcenter">备用1</label>
-				<input type="text" class="form-control inputcenter" id="inputbeiyong1" name="inputbeiyong1"/>
+				<input type="text" class="form-control inputcenter" id="inputbeiyong1" name="inputbeiyong1" />
 				<label for="inputbeiyong2" class="labelcenter">备用2</label>
-				<input type="text" class="form-control inputcenter" id="inputbeiyong2" name="inputbeiyong2"/>
+				<input type="text" class="form-control inputcenter" id="inputbeiyong2" name="inputbeiyong2" />
 			</div>
 			<div class="checkbox">
 				<center>
-				<label>
+					<label>
 					<input type="checkbox" />check me out
 				</label>
-				<label id="notice"></label>
+					<label id="notice"></label>
 				</center>
 			</div>
 			<center>
@@ -151,55 +151,126 @@
                 	时间：2017-05-09
                 	描述：post请求
                -->
-             	
-             	<button type="submit" class="btn btn-default">提交</button>   	
-               
-                <input type="button" class="btn btn-default" value="提交" onclick="eg.postcommit()"></input>
+
+				<!--直接提交页面跳转-->
+				<button type="submit" class="btn btn-default">提交</button>
+				<!--ajax提交页面不跳转-->
+				<input type="button" class="btn btn-default" value="提交" onclick="eg.postcommit()"></input>
+
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+					确认提交</button>
 			</center>
 		</form>
+		<!--模态框开始->
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">\
+							<span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">确认框</h4>
+					</div>
+					<div class="modal-body">
+						确定要保存吗？
+						<table>
+							<tr>
+								<td>
+									<h3>标题</h3>
+								</td>
+								<td>
+									<label id="inputtitle"></label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h3>标题</h3>
+								</td>
+								<td>
+									<label id="inputtitle"></label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h3>标题</h3>
+								</td>
+								<td>
+									<label id="inputtitle"></label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h3>标题</h3>
+								</td>
+								<td>
+									<label id="inputtitle"></label>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--模态框结束-->
 	</body>
+	<!--JS引用-->
+
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 	<script>
+		//初始化方法
+		$(function() {
+			
+		});
 		//提交ajax post请求
-		var eg={};
-		eg.postcommit=function(){
+		var eg = {};
+		eg.postcommit = function() {
 			loadXMLDoc('/zhiyuandata');
 		}
-		
+
 		//从ID获取控件
-		eg.$=function(id){
+		eg.$ = function(id) {
 			return document.getElementById(id);
 		}
-		
+
 		var xmlhttp;
-		function loadXMLDoc(url){
-			xmlhttp=null;
-			if(window.XMLHttpRequest){
-				xmlhttp=new XMLHttpRequest();
+
+		function loadXMLDoc(url) {
+			xmlhttp = null;
+			if(window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
 			}
 			var inputformparams;
-			if(xmlhttp!=null||xmlhttp!=undefined){
-				xmlhttp.onreadystatechange=state_Change;
-				xmlhttp.open("POST",url,true);
+			if(xmlhttp != null || xmlhttp != undefined) {
+				xmlhttp.onreadystatechange = state_Change;
+				xmlhttp.open("POST", url, true);
 				//这个不设置下面参数无法识别
-				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");  //设置的HTTP头
-				inputformparams="inputtitle=";
-				inputformparams=inputformparams+eg.$('inputtitle').value;
-				inputformparams=inputformparams+"&inputcili=";
-				inputformparams=inputformparams+eg.$('inputcili').value;
+				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //设置的HTTP头
+				inputformparams = "inputtitle=";
+				inputformparams = inputformparams + eg.$('inputtitle').value;
+				inputformparams = inputformparams + "&inputcili=";
+				inputformparams = inputformparams + eg.$('inputcili').value;
 				xmlhttp.send(inputformparams);
-			}else{
+			} else {
 				alert("Your browser does not support XMLHTTP.");
 			}
 		}
-		function state_Change(){
-			if(xmlhttp.readyState==4){
-				if(xmlhttp.status==200){
+
+		function state_Change() {
+			if(xmlhttp.readyState == 4) {
+				if(xmlhttp.status == 200) {
 					//200="OK"
-					eg.$('notice').innerHTML=xmlhttp.responseText;
-				}else{
-					alert("Problem retrieving data:"+xmlhttp.statusText);
+					eg.$('notice').innerHTML = xmlhttp.responseText;
+				} else {
+					alert("Problem retrieving data:" + xmlhttp.statusText);
 				}
 			}
 		}
 	</script>
+
 </html>

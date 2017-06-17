@@ -65,7 +65,7 @@ exports.search=function(req,res){
 };
 
 exports.photo=function(req,res){
-	res.render('photo');
+	res.render('photo',{});
 };
 
 exports.registerpage=function(req,res){

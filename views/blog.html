@@ -12,6 +12,13 @@
             -->
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>博客</title>
+		<!--
+        	作者：491128833@qq.com
+        	时间：2017-05-08
+        	描述：本地css样式为了离线使用
+        -->
+		<link rel="stylesheet" href="/static/stylesheets/bootstrap.min.css" />
+
 		<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 	</head>
 	<style>
@@ -21,11 +28,12 @@
 	</style>
 
 	<body>
+
 		<div class="container">
 
 			<div class="blog-header">
-				<h1 class="blog-title">这是用bootstrap做的博客页</h1>
-				<p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+				<h1 class="blog-title">博客页</h1>
+				<p class="lead blog-description">Bootstarp模版做的博客页</p>
 			</div>
 
 			<div class="row">
@@ -64,46 +72,8 @@
 						<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
 					</div>
 					<div class="sidebar-module">
-						<h4>Archives</h4>
+						<h4>博客列表</h4>
 						<%- sidecontent%>
-						<ol class="list-unstyled">
-							<li>
-								<a  onclick="loadXMLDoc('/blog/1')">2017.5.11</a>
-							</li>
-							<li>
-								<a href="#">February 2014</a>
-							</li>
-							<li>
-								<a href="#">January 2014</a>
-							</li>
-							<li>
-								<a href="#">December 2013</a>
-							</li>
-							<li>
-								<a href="#">November 2013</a>
-							</li>
-							<li>
-								<a href="#">October 2013</a>
-							</li>
-							<li>
-								<a href="#">September 2013</a>
-							</li>
-							<li>
-								<a href="#">August 2013</a>
-							</li>
-							<li>
-								<a href="#">July 2013</a>
-							</li>
-							<li>
-								<a href="#">June 2013</a>
-							</li>
-							<li>
-								<a href="#">May 2013</a>
-							</li>
-							<li>
-								<a href="#">April 2013</a>
-							</li>
-						</ol>
 					</div>
 					<div class="sidebar-module">
 						<h4>Elsewhere</h4>
@@ -127,8 +97,11 @@
 
 		</div>
 		<!-- /.container -->
-
 	</body>
+	<!--JS引用-->
+	
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script>
 		var xmlthhp;
 
@@ -164,4 +137,5 @@
 			return document.getElementById(id);
 		}
 	</script>
+
 </html>
