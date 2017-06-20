@@ -17,9 +17,9 @@
         	时间：2017-05-08
         	描述：本地css样式为了离线使用
         -->
-		
+
 		<link rel="stylesheet" href="/static/stylesheets/bootstrap.css" />
-		
+
 	</head>
 	<style>
 		body {
@@ -184,31 +184,76 @@
 			</a>
 		</div>
 		<!--以上为滚动图片-->
-	
+
 		<nav class="navbar navbar-default navbar-fixed-bottom">
 			<div class="container">
-			<audio src="http://musics.gimhoy.com/mp3/fbe2c68ed793f708465b1fdccedaf018.mp3" controls="controls" style="width: 100%;"></audio>
+				<audio src="http://musics.gimhoy.com/mp3/fbe2c68ed793f708465b1fdccedaf018.mp3" controls="controls" style="width: 80%;height: 100%;" id="soundid"></audio>
+				<!--上拉菜单-->
+			<div class="dropup">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    歌单
+    <span class="caret"></span>
+  </button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+					<li>
+						<a onclick="selectSoud('1')">天命风流</a>
+					</li>
+					<li>
+						<a onclick="selectSoud('2')">谓我</a>
+					</li>
+					<li>
+						<a onclick="selectSoud('3')">千年缘</a>
+					</li>
+					<li role="separator" class="divider"></li>
+					<li>
+						<a onclick="selectSoud('4')">千年缘</a>
+					</li>
+					<li>
+						<a onclick="selectSoud('5')">千年缘</a>
+					</li>
+				</ul>
 			</div>
+			<!--上拉菜单/-->
+			</div>
+			
 		</nav>
-			<!--
-            	作者：491128833@qq.com
-            	时间：2017-06-18
-            	描述：背景音乐
-            -->
-			<audio src="/static/music/お兄ちゃん.mp3" autoplay="autoplay"></audio>
+
+		<!--背景音乐-->
+		<audio src="/static/music/お兄ちゃん.mp3" autoplay="autoplay" id="playmusic"></audio>
 	</body>
 	<!--JS引用-->
 
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+	<script>
+		var sounds={
+			1:"/static/music/sound/墨明棋妙-天命风流.mp3",2:"/static/music/sound/小曲儿-谓我.mp3",3:"/static/music/sound/心然-千年缘.mp3",4:"/static/music/sound/心然-千年缘.mp3",5:"/static/music/sound/心然-千年缘.mp3"
+		}
+		
+		$(function(){
+			document.getElementById("soundid").volume = 0.5;
+			//jquery控制音量暂时无法实现
+			//$("#soundid").volume=0.5;
+		})
+		
+		function selectSoud(sound){
+			//alert(sounds[sound]);
+			$("#soundid")[0].pause();
+			$("#soundid").attr('src',sounds[sound]);
+			$("#soundid")[0].play();
+			
+		
+			
+		}
+		
+	</script>
 	<!--
     	作者：491128833@qq.com
     	时间：2017-05-08
     	描述：离线jquery和bootstrap的javascript文件使用
     -->
 	<!--
-    <script type="text/javascript" src="static/javascripts/jquery.min.js" ></script>
+    <script type="text/javascript" src="static/javascripts/jquery.min.js" ></noscript>
     <script type="text/javascript" src="static/javascripts/bootstrap.min.js" ></script>
 	-->
 
